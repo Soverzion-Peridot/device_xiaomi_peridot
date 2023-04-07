@@ -20,4 +20,6 @@
     <!-- The padding on the start of the statusbar -->
     <dimen name="status_bar_padding_start">28px</dimen>
 
+    <!-- Preferred max refresh rate at AOD & Ambient Display, if supported by the display. -->
+    <integer name="config_aodMaxRefreshRate">60</integer>
 </resources>
