@@ -100,19 +100,12 @@ debug.egl.hw=0
 debug.sf.auto_latch_unsignaled=0
 debug.sf.defer_refresh_rate_when_off=1
 debug.sf.disable_client_composition_cache=1
-debug.sf.early.app.duration=16600000
-debug.sf.early.sf.duration=16600000
-debug.sf.earlyGl.app.duration=16600000
-debug.sf.earlyGl.sf.duration=16600000
 debug.sf.enable_gl_backpressure=1
 debug.sf.enable_transaction_tracing=false
 debug.sf.frame_rate_multiple_threshold=120
 debug.sf.hw=0
-debug.sf.late.app.duration=16600000
-debug.sf.late.sf.duration=10500000
 debug.sf.predict_hwc_composition_strategy=0
 debug.sf.treat_170m_as_sRGB=1
-debug.sf.use_phase_offsets_as_durations=1
 graphics.gpu.profiler.support=true
 persist.sys.sf.color_mode=0
 persist.sys.sf.color_saturation=1.0
@@ -151,6 +144,7 @@ vendor.gralloc.disable_ubwc=0
 vendor.gralloc.enable_logs=0
 
 # HWUI
+ro.hwui.render_ahead=5
 debug.hwui.use_hint_manager=true
 debug.hwui.target_cpu_time_percent=30
 
