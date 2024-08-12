@@ -1726,13 +1726,8 @@ vendor/lib64/libqtikeymint.so
 
 # Listen
 vendor/lib64/hw/sound_trigger.primary.pineapple.so
-vendor/lib64/libeai_fixed.so
-vendor/lib64/libeai_float.so
-vendor/lib64/liblistensoundmodel2vendor.so
 vendor/lib64/libmispowerop.so
 vendor/lib64/libxlog.so
-vendor/lib64/vendor.qti.hardware.ListenSoundModel@1.0-impl.so
-vendor/lib64/vendor.qti.hardware.ListenSoundModel@1.0.so
 
 # Media
 odm/etc/surfaceflinger/dolby_vision.cfg
