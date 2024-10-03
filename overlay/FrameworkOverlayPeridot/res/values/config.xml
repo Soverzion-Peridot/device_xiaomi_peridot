@@ -1057,4 +1057,8 @@
         <item>0</item>
         <item>0</item>
     </integer-array>
+
+    <!-- media controls -->
+    <bool name="config_mediaControlsTurbulenceByDefault">true</bool>
+
 </resources>
