@@ -205,6 +205,19 @@
                    channels="1" />
         </EncoderProfile>
 
+        <!-- 2160p: 3840 x 2160 30fps -->
+        <EncoderProfile quality="2160p" fileFormat="mp4" duration="30">
+            <Video codec="h264"
+                   bitRate="30000000"
+                   width="3840"
+                   height="2160"
+                   frameRate="30" />
+            <Audio codec="aac"
+                   bitRate="96000"
+                   sampleRate="48000"
+                   channels="1" />
+        </EncoderProfile>
+
         <!-- timelapse_qcif: 176 x 144 30fps -->
         <EncoderProfile quality="timelapseqcif" fileFormat="mp4" duration="30">
             <Video codec="h264"
@@ -275,6 +288,18 @@
                    channels="1" />
         </EncoderProfile>
 
+        <EncoderProfile quality="timelapse2160p" fileFormat="mp4" duration="30">
+            <Video codec="h264"
+                   bitRate="26000000"
+                   width="3840"
+                   height="2160"
+                   frameRate="30" />
+            <!-- audio setting is ignored -->
+            <Audio codec="aac"
+                   bitRate="96000"
+                   sampleRate="48000"
+                   channels="1" />
+        </EncoderProfile>
 
         <ImageEncoding quality="95" />
         <ImageEncoding quality="80" />
@@ -382,6 +407,19 @@
                    bitRate="20000000"
                    width="1920"
                    height="1080"
+                   frameRate="30" />
+            <Audio codec="aac"
+                   bitRate="96000"
+                   sampleRate="48000"
+                   channels="1" />
+        </EncoderProfile>
+
+        <!-- 2160p: 3840 x 2160 30fps -->
+        <EncoderProfile quality="2160p" fileFormat="mp4" duration="30">
+            <Video codec="h264"
+                   bitRate="30000000"
+                   width="3840"
+                   height="2160"
                    frameRate="30" />
             <Audio codec="aac"
                    bitRate="96000"
