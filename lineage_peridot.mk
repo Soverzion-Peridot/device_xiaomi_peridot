@@ -8,7 +8,7 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
-# Inherit some common Lineage stuff.
+# Inherit some common Project Matrixx stuff.
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
 # Inherit from peridot device
@@ -16,6 +16,17 @@ $(call inherit-product, device/xiaomi/peridot/device.mk)
 
 # Inherit from the MiuiCamera setup
 $(call inherit-product-if-exists, device/xiaomi/peridot-miuicamera/device.mk)
+
+# Project Matrixx Flags
+TARGET_FACE_UNLOCK_SUPPORTED := true
+TARGET_SUPPORTS_GOOGLE_RECORDER := true
+TARGET_INCLUDE_STOCK_ARCORE := true
+TARGET_INCLUDE_STOCK_AICORE := true
+MATRIXX_BUILD_TYPE := Official
+WITH_GMS := true
+WITH_GMS_COMMS_SUITE := true
+TARGET_SUPPORTS_WALLEFFECT := true
+TARGET_BOOT_ANIMATION_RES := 1080
 
 PRODUCT_NAME := lineage_peridot
 PRODUCT_DEVICE := peridot
