@@ -669,6 +669,7 @@ PRODUCT_COPY_FILES += \
 # WiFi Display
 PRODUCT_PACKAGES += \
     android.media.audio.common.types-V2-cpp \
+    libbinder_shim \
     libdisplayconfig.system.qti \
     libgui_shim \
     libinput_shim \
