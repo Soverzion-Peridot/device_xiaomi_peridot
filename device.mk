@@ -203,9 +203,7 @@ PRODUCT_COPY_FILES += \
 TARGET_HAS_UDFPS := true
 
 PRODUCT_PACKAGES += \
-    android.hardware.biometrics.common.thread.vendor \
-    android.hardware.biometrics.common.util.vendor \
-    android.hardware.biometrics.fingerprint-V3-ndk.vendor
+    android.hardware.biometrics.fingerprint-service.xiaomi
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.fingerprint.xml
@@ -285,7 +283,8 @@ PRODUCT_PACKAGES += \
     init.qcom.rc \
     init.qti.kernel.rc \
     init.recovery.qcom.rc \
-    init.target.rc
+    init.target.rc \
+    init.fingerprint.rc
 
 PRODUCT_PACKAGES += \
     ueventd-odm.rc \
