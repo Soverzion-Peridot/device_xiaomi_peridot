@@ -24,3 +24,8 @@ genfscon sysfs /devices/platform/goodix_ts.0/wakeup u:object_r:sysfs_wakeup:s0
 
 # UDFPS Long Press Sensor
 genfscon sysfs /devices/virtual/touch/touch_dev/fod_press_status                                             u:object_r:sysfs_touchpanel:s0
+
+# Axion tuning
+genfscon proc /sys/vm/vfs_cache_pressure                 u:object_r:proc_drop_caches:s0
+genfscon proc /sys/vm/dirty_ratio                        u:object_r:proc_dirty:s0
+genfscon proc /sys/kernel/sched_migration_cost_ns        u:object_r:proc_sched:s0
