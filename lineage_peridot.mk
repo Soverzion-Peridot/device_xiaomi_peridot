@@ -17,6 +17,19 @@ $(call inherit-product, device/xiaomi/peridot/device.mk)
 # Inherit from the MiuiCamera setup
 $(call inherit-product-if-exists, device/xiaomi/peridot-miuicamera/device.mk)
 
+# Axion stuffs
+AXION_CAMERA_REAR_INFO := 50,8
+AXION_CAMERA_FRONT_INFO := 20
+AXION_MAINTAINER := Drenzzz.
+AXION_PROCESSOR := Qualcomm_Snapdragon_8s_Gen_3
+AXION_CPU_SMALL_CORES := 0,1,2
+AXION_CPU_BIG_CORES := 3,4,5,6
+AXION_CPU_BG := 0-1 
+AXION_CPU_FG := 0-4
+AXION_CPU_LIMIT_BG := 0
+TARGET_ENABLE_BLUR := true
+TARGET_INCLUDES_LOS_PREBUILTS := true
+
 PRODUCT_NAME := lineage_peridot
 PRODUCT_DEVICE := peridot
 PRODUCT_MANUFACTURER := Xiaomi
