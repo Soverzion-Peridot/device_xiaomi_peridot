@@ -19,6 +19,10 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
 # pKVM
 $(call inherit-product, packages/modules/Virtualization/apex/product_packages.mk)
 
+# Reduce system server verbosity
+    PRODUCT_SYSTEM_SERVER_DEBUG_INFO := false
+
+
 # Qualcomm
 $(call inherit-product, hardware/qcom-caf/common/common.mk)
 
