@@ -19,10 +19,6 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
 # pKVM
 $(call inherit-product, packages/modules/Virtualization/apex/product_packages.mk)
 
-# Reduce system server verbosity
-    PRODUCT_SYSTEM_SERVER_DEBUG_INFO := false
-
-
 # Qualcomm
 $(call inherit-product, hardware/qcom-caf/common/common.mk)
 
@@ -509,6 +505,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     rfs_msm_mpss_readonly_mbnconfig_symlink \
     rfs_msm_mpss_readonly_modem_firmware_symlink
+    
+# Reduce system server verbosity
+    PRODUCT_SYSTEM_SERVER_DEBUG_INFO := false
 
 # RenderScript
 PRODUCT_PACKAGES += \
