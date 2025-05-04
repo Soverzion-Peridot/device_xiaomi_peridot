@@ -379,7 +379,9 @@ PRODUCT_PACKAGES += \
     libcodec2_hidl@1.2.vendor \
     libcodec2_hidl_shim \
     libcodec2_soft_common.vendor \
-    libcodec2_vndk.vendor
+    libcodec2_vndk.vendor \
+    libsfplugin_ccodec \
+    libstagefright
 
 PRODUCT_PACKAGES += \
     android.hardware.media.bufferpool2-V1-ndk.vendor \
