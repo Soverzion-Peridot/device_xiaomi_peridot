@@ -32,6 +32,8 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BIND_QUICK_SETTINGS_TILE" />
 
     <protected-broadcast android:name="com.android.systemui.doze.pulse" />
 
@@ -296,6 +298,16 @@
         <service
             android:name=".bypasscharging.BypassChargingService"
             android:exported="false" />
+
+        <service
+            android:name=".bypasscharging.BypassChargingTileService"
+            android:label="@string/bypass_charging_settings_title"
+            android:icon="@drawable/ic_battery_bypass"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
 
     </application>
 </manifest>

@@ -42,6 +42,7 @@ import org.lineageos.settings.touchsampling.TouchSamplingService;
 import org.lineageos.settings.touchsampling.TouchSamplingTileService;
 import org.lineageos.settings.bypasscharging.BypassChargingUtils;
 import org.lineageos.settings.bypasscharging.BypassChargingService;
+import org.lineageos.settings.bypasscharging.BypassChargingTileService;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
     private static final boolean DEBUG = false;
@@ -122,6 +123,10 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
         // Start Bypass Charging Service 
         context.startServiceAsUser(new Intent(context, BypassChargingService.class),
+                UserHandle.CURRENT);
+        
+        // Bypass Charging Tile Service
+        context.startServiceAsUser(new Intent(context, BypassChargingTileService.class),
                 UserHandle.CURRENT);
 
     }
