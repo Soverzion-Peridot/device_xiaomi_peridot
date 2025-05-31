@@ -10,6 +10,7 @@
 
 # Battery
 /(vendor|system/vendor)/bin/batterysecret u:object_r:batterysecret_exec:s0
+/sys/class/qcom-battery/night_charging u:object_r:vendor_sysfs_battery_supply:s0
 
 # Camera
 /mnt/vendor/persist/camera(/.*)? u:object_r:camera_persist_file:s0

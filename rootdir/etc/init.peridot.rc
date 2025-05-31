@@ -25,6 +25,10 @@ on boot
     chown system system /sys/class/power_supply/battery/temp
     chmod 0660 /sys/class/power_supply/battery/temp
 
+    chown system system /sys/class/qcom-battery/night_charging
+    chmod 0664 /sys/class/qcom-battery/night_charging
+    restorecon /sys/class/qcom-battery/night_charging
+
 # Migrate tasks again in case kernel threads are created during boot
 on property:sys.boot_completed=1
     copy_per_line /dev/cpuctl/tasks /dev/cpuctl/system/tasks

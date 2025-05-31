@@ -274,5 +274,28 @@
                 <category android:name="android.intent.category.DEFAULT" />
              </intent-filter>
         </receiver>
+
+        <!-- Activity for Bypass Charging Settings -->
+        <activity
+            android:name=".bypasscharging.BypassChargingSettingsActivity"
+            android:label="@string/bypass_charging_title"
+            android:exported="true"
+            android:theme="@style/Theme.SubSettingsBase">
+            <intent-filter>
+                <action android:name="com.android.settings.action.IA_SETTINGS" />
+            </intent-filter>
+            <meta-data
+                android:name="com.android.settings.category"
+                android:value="com.android.settings.category.ia.battery" />
+            <meta-data
+                android:name="com.android.settings.summary"
+                android:resource="@string/bypass_charging_summary" />
+        </activity>
+
+        <!-- Service for applying bypass charging -->
+        <service
+            android:name=".bypasscharging.BypassChargingService"
+            android:exported="false" />
+
     </application>
 </manifest>

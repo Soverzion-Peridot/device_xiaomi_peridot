@@ -91,4 +91,12 @@
     <string name="game_bar_tile_label">GameBar</string>
     <string name="game_bar_tile_description">Toggle the game overlay</string>
 
+     <!-- Bypass Charging Strings -->
+     <string name="bypass_charging_title">Bypass Charging</string>
+     <string name="bypass_charging_summary">Enable bypass charging to prevent battery charging</string>
+     <string name="bypass_charging_desc">When enabled, the device will run directly from charger power without charging the battery, preventing heat buildup during intensive sessions</string>
+     <string name="not_supported">Not supported</string>
+     <string name="enabled">Enabled</string>
+     <string name="disabled">Disabled</string>
+     
 </resources>

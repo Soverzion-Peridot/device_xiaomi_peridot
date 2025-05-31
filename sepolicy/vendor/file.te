@@ -23,3 +23,4 @@ type proc_tp_lockdown, file_type;
 type sysfs_touchpanel, fs_type, sysfs_type;
 type vendor_sysfs_iio, fs_type, sysfs_type;
 type sysfs_msm_subsys, fs_type, sysfs_type;
+type sysfs_battery, fs_type, sysfs_type;
