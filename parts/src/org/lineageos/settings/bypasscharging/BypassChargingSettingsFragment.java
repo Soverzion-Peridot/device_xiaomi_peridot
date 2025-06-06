@@ -34,10 +34,12 @@ public class BypassChargingSettingsFragment extends PreferenceFragment
         implements Preference.OnPreferenceChangeListener {
     private static final String TAG = "BypassChargingFragment";
     private static final String BYPASS_CHARGING_ENABLE_KEY = "bypass_charging_enable";
+    private static final String PER_APP_BYPASS_CHARGING_KEY = "per_app_bypass_charging";
     public static final String SHARED_BYPASS_CHARGING = "SHARED_BYPASS_CHARGING";
     public static final String BYPASS_CHARGING_STATE = "bypass_charging_state";
 
     private SwitchPreference mBypassChargingPreference;
+    private Preference mPerAppPreference;
     private SharedPreferences mPrefs;
 
     @Override
@@ -52,18 +54,28 @@ public class BypassChargingSettingsFragment extends PreferenceFragment
         }
 
         mBypassChargingPreference = findPreference(BYPASS_CHARGING_ENABLE_KEY);
+        mPerAppPreference = findPreference(PER_APP_BYPASS_CHARGING_KEY);
         mPrefs = getActivity().getSharedPreferences(SHARED_BYPASS_CHARGING, Context.MODE_PRIVATE);
 
         if (!BypassChargingUtils.isSupported()) {
             Log.w(TAG, "Bypass charging not supported");
             mBypassChargingPreference.setEnabled(false);
             mBypassChargingPreference.setSummary(R.string.not_supported);
+            mPerAppPreference.setEnabled(false);
+            mPerAppPreference.setSummary(R.string.not_supported);
             return;
         }
 
         boolean bypassEnabled = mPrefs.getBoolean(BYPASS_CHARGING_STATE, false);
         mBypassChargingPreference.setChecked(bypassEnabled);
         mBypassChargingPreference.setOnPreferenceChangeListener(this);
+
+        mPerAppPreference.setOnPreferenceClickListener(preference -> {
+            Intent intent = new Intent(getActivity(), BypassChargingPerAppActivity.class);
+            startActivity(intent);
+            return true;
+        });
+
         syncAndApplyState(bypassEnabled);
         Log.d(TAG, "Fragment initialized with state: " + bypassEnabled);
     }
@@ -101,7 +113,7 @@ public class BypassChargingSettingsFragment extends PreferenceFragment
     private void manageService(boolean enable) {
         try {
             Intent serviceIntent = new Intent(getActivity(), BypassChargingService.class);
-            if (enable) {
+            if (enable || !BypassChargingUtils.getPerAppBypassEnabledApps(getActivity()).isEmpty()) {
                 getActivity().startService(serviceIntent);
                 Log.d(TAG, "Started service");
             } else {

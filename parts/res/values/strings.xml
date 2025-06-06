@@ -100,4 +100,8 @@
      <string name="enabled">Enabled</string>
      <string name="disabled">Disabled</string>
 
+    <!-- Per-App Bypass Charging -->
+    <string name="per_app_bypass_charging_title">Per-App Bypass Charging</string>
+    <string name="per_app_bypass_charging_summary">Enable bypass charging for specific applications</string>
+
 </resources>

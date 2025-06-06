@@ -24,10 +24,13 @@ import android.util.Log;
 import org.lineageos.settings.utils.FileUtils;
 
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 public final class BypassChargingUtils {
     private static final String TAG = "BypassChargingUtils";
     public static final String BYPASS_CHARGING_NODE = "/sys/class/qcom-battery/night_charging";
+    private static final String PER_APP_BYPASS_ENABLED_APPS = "per_app_bypass_enabled_apps";
 
     private BypassChargingUtils() {}
 
@@ -126,5 +129,37 @@ public final class BypassChargingUtils {
         } catch (Exception e) {
             Log.e(TAG, "Error debugging node info", e);
         }
+    }
+
+    public static boolean isPerAppBypassEnabled(Context context, String packageName) {
+        SharedPreferences sharedPref = context.getSharedPreferences(
+                BypassChargingSettingsFragment.SHARED_BYPASS_CHARGING, Context.MODE_PRIVATE);
+        Set<String> enabledApps = sharedPref.getStringSet(PER_APP_BYPASS_ENABLED_APPS, new HashSet<>());
+        return enabledApps.contains(packageName);
+    }
+
+    public static void setPerAppBypassEnabled(Context context, String packageName, boolean enabled) {
+        SharedPreferences sharedPref = context.getSharedPreferences(
+                BypassChargingSettingsFragment.SHARED_BYPASS_CHARGING, Context.MODE_PRIVATE);
+        Set<String> enabledApps = new HashSet<>(sharedPref.getStringSet(PER_APP_BYPASS_ENABLED_APPS, new HashSet<>()));
+        if (enabled) {
+            enabledApps.add(packageName);
+        } else {
+            enabledApps.remove(packageName);
+        }
+        sharedPref.edit().putStringSet(PER_APP_BYPASS_ENABLED_APPS, enabledApps).apply();
+        Log.d(TAG, "Set per-app bypass for " + packageName + ": " + enabled);
+    }
+
+    public static Set<String> getPerAppBypassEnabledApps(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences(
+                BypassChargingSettingsFragment.SHARED_BYPASS_CHARGING, Context.MODE_PRIVATE);
+        return new HashSet<>(sharedPref.getStringSet(PER_APP_BYPASS_ENABLED_APPS, new HashSet<>()));
+    }
+
+    public static boolean isGlobalBypassEnabled(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences(
+                BypassChargingSettingsFragment.SHARED_BYPASS_CHARGING, Context.MODE_PRIVATE);
+        return sharedPref.getBoolean(BypassChargingSettingsFragment.BYPASS_CHARGING_STATE, false);
     }
 }

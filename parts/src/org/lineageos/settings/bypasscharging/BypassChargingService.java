@@ -16,18 +16,27 @@
 
 package org.lineageos.settings.bypasscharging;
 
+import android.app.ActivityManager;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.util.Log;
+
+import java.util.List;
+import java.util.Set;
 
 public class BypassChargingService extends Service {
     private static final String TAG = "BypassChargingService";
     private BroadcastReceiver mPowerStateReceiver;
+    private Handler mHandler;
+    private Runnable mForegroundCheckRunnable;
+    private static final long FOREGROUND_CHECK_INTERVAL = 1000; // Check every 1 second
 
     @Override
     public void onCreate() {
@@ -59,6 +68,16 @@ public class BypassChargingService extends Service {
         filter.addAction(Intent.ACTION_SCREEN_ON);
         registerReceiver(mPowerStateReceiver, filter);
 
+        mHandler = new Handler(Looper.getMainLooper());
+        mForegroundCheckRunnable = new Runnable() {
+            @Override
+            public void run() {
+                checkForegroundApp();
+                mHandler.postDelayed(this, FOREGROUND_CHECK_INTERVAL);
+            }
+        };
+        mHandler.post(mForegroundCheckRunnable);
+
         applyBypassChargingState(null);
     }
 
@@ -83,6 +102,10 @@ public class BypassChargingService extends Service {
                 Log.w(TAG, "Error unregistering receiver", e);
             }
         }
+
+        if (mHandler != null && mForegroundCheckRunnable != null) {
+            mHandler.removeCallbacks(mForegroundCheckRunnable);
+        }
     }
 
     @Override
@@ -97,9 +120,8 @@ public class BypassChargingService extends Service {
 
         try {
             boolean targetState = enabled != null ? enabled :
-                    getSharedPreferences(BypassChargingSettingsFragment.SHARED_BYPASS_CHARGING, Context.MODE_PRIVATE)
-                            .getBoolean(BypassChargingSettingsFragment.BYPASS_CHARGING_STATE, false);
-
+                    BypassChargingUtils.isGlobalBypassEnabled(this) ||
+                    isForegroundAppBypassEnabled();
             boolean currentState = BypassChargingUtils.getBypassChargingState();
             if (currentState != targetState) {
                 Log.d(TAG, "Applying bypass charging state: " + targetState);
@@ -110,5 +132,32 @@ public class BypassChargingService extends Service {
         } catch (Exception e) {
             Log.e(TAG, "Error applying bypass charging state", e);
         }
+    }
+
+    private boolean isForegroundAppBypassEnabled() {
+        try {
+            ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+            List<ActivityManager.RunningAppProcessInfo> processes = am.getRunningAppProcesses();
+            if (processes != null) {
+                for (ActivityManager.RunningAppProcessInfo process : processes) {
+                    if (process.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                        Set<String> enabledApps = BypassChargingUtils.getPerAppBypassEnabledApps(this);
+                        for (String pkg : process.pkgList) {
+                            if (enabledApps.contains(pkg)) {
+                                Log.d(TAG, "Foreground app " + pkg + " has bypass charging enabled");
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error checking foreground app", e);
+        }
+        return false;
+    }
+
+    private void checkForegroundApp() {
+        applyBypassChargingState(null);
     }
 }
